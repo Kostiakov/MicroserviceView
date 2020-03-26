@@ -1,0 +1,22 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<form action="#" th:action="@{/addBook}" th:object="${book}"
+		method="post">
+		<input type="text" th:field="*{author}" placeholder="Author">
+		<input type="text" th:field="*{title}" placeholder="Title">
+		<input type="text" th:field="*{publisher}" placeholder="Publisher">
+		<input type="text" th:field="*{year}" placeholder="Year">
+		<button type="submit">Save Book</button>
+	</form>
+	<form action="#" th:action="@{/addMagazine}" th:object="${magazine}"
+		method="post">
+		<input type="text" th:field="*{title}" placeholder="Title">
+		<input type="text" th:field="*{publisher}" placeholder="Publisher">
+		<input type="text" th:field="*{year}" placeholder="Year">
+		<input type="text" th:field="*{numbersPerYear}" placeholder="Numbers Per Year">
+		<button type="submit">Save Magazine</button>
+	</form>
+</body>
+</html>

@@ -4,9 +4,18 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.view.entity.BookNew;
@@ -71,6 +80,45 @@ public class ViewController {
 		model.addAttribute("books", listBooks);
 		model.addAttribute("magazines", listMagazines);
 		return "list";
+	}
+	
+	@GetMapping("/showFormForAdd")
+	public String showFormForAdd(Model model) {
+		BookNew theBook=new BookNew();
+		model.addAttribute("book", theBook);
+		MagazineNew theMagazine=new MagazineNew();
+		model.addAttribute("magazine", theMagazine);
+		return "literature-form";
+	}
+	
+	@PostMapping("/addBook")
+	public String addBook(@ModelAttribute("book") BookNew theBook) {
+		RestTemplate restTemplate = new RestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    HttpEntity<?> entity = new HttpEntity<Object>(theBook,headers);
+	    ResponseEntity<LiteratureNew> responseEntity = restTemplate.exchange("http://localhost:8085/bookshop/literature/book", HttpMethod.POST, entity, LiteratureNew.class);
+		return "redirect:/";
+	}
+	
+	@PostMapping("/addMagazine")
+	public String addMagazine(@ModelAttribute("magazine") MagazineNew theMagazine) {
+		RestTemplate restTemplate = new RestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    HttpEntity<?> entity = new HttpEntity<Object>(theMagazine,headers);
+	    ResponseEntity<LiteratureNew> responseEntity = restTemplate.exchange("http://localhost:8085/bookshop/literature/magazine", HttpMethod.POST, entity, LiteratureNew.class);
+		return "redirect:/";
+	}
+	
+	@RequestMapping("/delete")
+	public String deleteLiterature(@RequestParam("literatureId") int theId, Model model) {
+		RestTemplate restTemplate = new RestTemplate();
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.setContentType(MediaType.APPLICATION_JSON);
+	    HttpEntity<?> entity = new HttpEntity<Object>(theId,headers);
+	    ResponseEntity<Integer> responseEntity = restTemplate.exchange("http://localhost:8085/bookshop/literature/" + theId, HttpMethod.DELETE, entity, Integer.class);
+		return "redirect:/";
 	}
 
 }

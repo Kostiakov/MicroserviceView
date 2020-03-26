@@ -18,6 +18,7 @@
 				<td th:text="${tempLiterature.title}"></td>
 				<td th:text="${tempLiterature.publisher}"></td>
 				<td th:text="${tempLiterature.year}"></td>
+				<td><a th:href="@{/delete(literatureId=${tempLiterature.id})}">Delete</a></td>
 			</tr>
 		</tbody>
 	</table>
