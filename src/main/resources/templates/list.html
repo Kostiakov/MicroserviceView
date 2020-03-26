@@ -1,0 +1,45 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+	<h3>Books</h3>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Author</th>
+				<th>Title</th>
+				<th>Publisher</th>
+				<th>Year</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="tempLiterature: ${books}">
+				<td th:text="${tempLiterature.author}"></td>
+				<td th:text="${tempLiterature.title}"></td>
+				<td th:text="${tempLiterature.publisher}"></td>
+				<td th:text="${tempLiterature.year}"></td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<h3>Magazines</h3>
+	<table border="1">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Publisher</th>
+				<th>Year</th>
+				<th>Numbers Per Year</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="tempLiterature: ${magazines}">
+				<td th:text="${tempLiterature.title}"></td>
+				<td th:text="${tempLiterature.publisher}"></td>
+				<td th:text="${tempLiterature.year}"></td>
+				<td th:text="${tempLiterature.numbersPerYear}"></td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+</html>
